@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./App.css";
 
 function App() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
   // User Login info
   const database = [
     {
@@ -22,7 +24,10 @@ function App() {
     uname: "invalid username",
     pass: "invalid password",
   };
-
+  const handleLogout = () => {
+    window.location.reload();
+    console.log("logout");
+  };
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
@@ -63,7 +68,22 @@ function App() {
         </div>
         <div className="input-container">
           <label>Password </label>
-          <input type="password" name="pass" required />
+          <input
+            type={isPasswordShown ? "text" : "password"}
+            name="pass"
+            required
+          />
+          <span
+            className="password-icon-container"
+            onClick={() => setIsPasswordShown(!isPasswordShown)}
+          >
+            {isPasswordShown ? (
+              <VisibilityIcon className="password-icon" />
+            ) : (
+              <VisibilityOffIcon className="password-icon" />
+            )}
+          </span>
+
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
@@ -77,7 +97,16 @@ function App() {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {isSubmitted ? (
+          <div>
+            User is successfully logged in
+            <button className="button-container" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          renderForm
+        )}
       </div>
     </div>
   );

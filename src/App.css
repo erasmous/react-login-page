@@ -16,6 +16,7 @@ input[type="password"] {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+button,
 input[type="submit"] {
   margin-top: 10px;
   cursor: pointer;
@@ -26,10 +27,12 @@ input[type="submit"] {
   padding: 10px 20px;
 }
 
+button:hover,
 input[type="submit"]:hover {
   background: #6cf0c2;
 }
 
+button,
 .button-container {
   display: flex;
   justify-content: center;
@@ -60,4 +63,19 @@ input[type="submit"]:hover {
   flex-direction: column;
   gap: 8px;
   margin: 10px;
+  position: relative;
+}
+
+.password-icon-container {
+  position: absolute;
+  right: 5px;
+  cursor: pointer;
+  width: 20px;
+}
+
+.password-icon {
+  position: absolute;
+  right: 5px;
+  cursor: pointer;
+  top: 30px;
 }
