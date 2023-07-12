@@ -8,6 +8,7 @@ function App() {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isLoginAttemptCount, setIsloginAttemptCount] = useState(0);
   // User Login info
   const database = [
     {
@@ -42,6 +43,7 @@ function App() {
       if (userData.password !== pass.value) {
         // Invalid password
         setErrorMessages({ name: "pass", message: errors.pass });
+        setIsloginAttemptCount((attempt) => attempt + 1);
       } else {
         setIsSubmitted(true);
       }
@@ -83,11 +85,15 @@ function App() {
               <VisibilityOffIcon className="password-icon" />
             )}
           </span>
-
           {renderErrorMessage("pass")}
+          {isLoginAttemptCount}
         </div>
         <div className="button-container">
-          <input type="submit" />
+          {isLoginAttemptCount === 3 ? (
+            <input type="submit" disabled />
+          ) : (
+            <input type="submit" />
+          )}
         </div>
       </form>
     </div>
